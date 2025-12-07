@@ -1,4 +1,4 @@
 # Step 1: Use Django 4.1.0 which depends on sqlparse
 # sqlparse has CVE-2023-30608 (ReDOS) in versions < 0.4.4
 # Django 4.1.0 allows sqlparse versions that include vulnerable ones
-Django==4.1.0
+Django==4.2.27
