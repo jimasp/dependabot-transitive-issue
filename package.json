@@ -10,6 +10,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "axios": "0.21.1"
+    "@dependabot-fixtures/npm-parent-dependency": "2.0.0"
   }
 }
