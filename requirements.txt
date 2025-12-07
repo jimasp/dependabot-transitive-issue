@@ -1,4 +1,4 @@
-# Step 1: Use Django 4.1.0 which depends on sqlparse
-# sqlparse has CVE-2023-30608 (ReDOS) in versions < 0.4.4
-# Django 4.1.0 allows sqlparse versions that include vulnerable ones
-Django==4.1.0
+# Step 1: Use a library with vulnerable transitive dependencies
+# Try using an older version of a data science tool that depends on vulnerable packages
+# Example: jupyter-server with tornado or other transitive dependencies
+jupyter-server==1.23.0

@@ -4,13 +4,13 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ## The Problem Scenario
 
-1. **Initial State**: We have Django 4.1.0 installed, which depends on sqlparse
-   - sqlparse (transitive dependency) has CVE-2023-30608 (ReDOS vulnerability) in versions < 0.4.4
-   - Dependabot will create an alert for this vulnerability
+1. **Initial State**: We have a library installed that depends on packages with vulnerabilities
+   - The transitive dependency has known security vulnerabilities
+   - Dependabot will create an alert for the transitive dependency vulnerability
 
-2. **The Fix**: We update Django to a newer version (e.g., 4.2.0+) which requires sqlparse >= 0.4.4
-   - The new sqlparse version fixes the security vulnerability
-   - However, we didn't directly change sqlparse in requirements.txt - we only changed Django
+2. **The Fix**: We update the parent package to a newer version that requires patched transitive dependencies
+   - The new transitive dependency version fixes the security vulnerability
+   - However, we didn't directly change the vulnerable package in requirements.txt - we only changed its parent
 
 3. **The Issue**: Dependabot may not automatically detect that the transitive dependency issue is resolved
    - The alert remains open even though the vulnerability is fixed
@@ -21,7 +21,7 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ```
 .
-├── app.py              # Minimal Django application
+├── app.py              # Simple Python script
 ├── requirements.txt    # Python dependencies
 └── README.md          # This file
 ```
@@ -30,23 +30,20 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ### Step 1: Create the vulnerability (Initial commit)
 ```bash
-# This commit has Django 4.1.0 which allows vulnerable sqlparse versions
+# This commit has a package version that allows vulnerable transitive dependencies
 git add .
 git commit -m "Initial commit with vulnerable dependencies"
 git push
 ```
 
-Wait for Dependabot to create an alert for the sqlparse vulnerability.
+Wait for Dependabot to create an alert for the transitive dependency vulnerability.
 
 ### Step 2: Fix the vulnerability (Fix commit)
-Update `requirements.txt` to:
-```
-Django==4.2.0  # or newer - this requires sqlparse >= 0.4.4 (patched)
-```
+Update `requirements.txt` to a newer version of the parent package that requires patched dependencies.
 
 ```bash
 git add requirements.txt
-git commit -m "Update Django to fix transitive sqlparse vulnerability"
+git commit -m "Update package to fix transitive vulnerability"
 git push
 ```
 
