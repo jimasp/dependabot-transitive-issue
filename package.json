@@ -1,0 +1,15 @@
+{
+  "name": "dependabot-transitive-issue-demo",
+  "version": "1.0.0",
+  "description": "Demonstrates Dependabot transitive dependency detection issues",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["dependabot", "security", "transitive-dependency"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "async": "2.6.3"
+  }
+}

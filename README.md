@@ -4,13 +4,13 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ## The Problem Scenario
 
-1. **Initial State**: We have a library installed that depends on packages with vulnerabilities
-   - The transitive dependency has known security vulnerabilities
-   - Dependabot will create an alert for the transitive dependency vulnerability
+1. **Initial State**: We have `async@2.6.3` installed, which depends on `lodash@4.17.19`
+   - lodash 4.17.19 (transitive dependency) has known security vulnerabilities (CVE-2020-8203, CVE-2021-23337)
+   - Dependabot will create an alert for the lodash vulnerability
 
-2. **The Fix**: We update the parent package to a newer version that requires patched transitive dependencies
-   - The new transitive dependency version fixes the security vulnerability
-   - However, we didn't directly change the vulnerable package in requirements.txt - we only changed its parent
+2. **The Fix**: We update async to version 3.x which no longer depends on lodash
+   - The lodash vulnerability is resolved by removing/updating the dependency
+   - However, we didn't directly change lodash in package.json - we only changed async
 
 3. **The Issue**: Dependabot may not automatically detect that the transitive dependency issue is resolved
    - The alert remains open even though the vulnerability is fixed
@@ -21,8 +21,8 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ```
 .
-├── app.py              # Simple Python script
-├── requirements.txt    # Python dependencies
+├── index.js            # Simple Node.js script
+├── package.json        # npm dependencies
 └── README.md          # This file
 ```
 
@@ -30,20 +30,23 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ### Step 1: Create the vulnerability (Initial commit)
 ```bash
-# This commit has a package version that allows vulnerable transitive dependencies
+# This commit has async 2.6.3 which depends on vulnerable lodash 4.17.19
 git add .
 git commit -m "Initial commit with vulnerable dependencies"
 git push
 ```
 
-Wait for Dependabot to create an alert for the transitive dependency vulnerability.
+Wait for Dependabot to create an alert for the lodash vulnerability.
 
 ### Step 2: Fix the vulnerability (Fix commit)
-Update `requirements.txt` to a newer version of the parent package that requires patched dependencies.
+Update `package.json` to:
+```json
+"async": "3.2.4"
+```
 
 ```bash
-git add requirements.txt
-git commit -m "Update package to fix transitive vulnerability"
+git add package.json
+git commit -m "Update async to fix transitive lodash vulnerability"
 git push
 ```
 

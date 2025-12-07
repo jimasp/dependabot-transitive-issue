@@ -1,4 +1,0 @@
-# Step 1: Use a library with vulnerable transitive dependencies
-# Try using an older version of a data science tool that depends on vulnerable packages
-# Example: jupyter-server with tornado or other transitive dependencies
-jupyter-server==1.23.0
