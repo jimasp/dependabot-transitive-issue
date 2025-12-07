@@ -4,13 +4,13 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ## The Problem Scenario
 
-1. **Initial State**: We have Flask 2.0.1 installed, which depends on Werkzeug 2.0.x
-   - Werkzeug (transitive dependency) has known security vulnerabilities in version 2.0.x
+1. **Initial State**: We have requests 2.27.1 installed, which depends on certifi
+   - certifi (transitive dependency) has known security vulnerabilities in older versions (e.g., CVE-2022-23491, CVE-2023-37920)
    - Dependabot will create an alert for this vulnerability
 
-2. **The Fix**: We update Flask to a newer version (e.g., 2.2.0+) which depends on Werkzeug 2.2.x+
-   - The new Werkzeug version fixes the security vulnerability
-   - However, we didn't directly change Werkzeug in requirements.txt - we only changed Flask
+2. **The Fix**: We update requests to a newer version (e.g., 2.31.0+) which depends on a patched certifi
+   - The new certifi version fixes the security vulnerability
+   - However, we didn't directly change certifi in requirements.txt - we only changed requests
 
 3. **The Issue**: Dependabot may not automatically detect that the transitive dependency issue is resolved
    - The alert remains open even though the vulnerability is fixed
@@ -21,7 +21,7 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ```
 .
-├── app.py              # Simple Flask application
+├── app.py              # Simple application using requests
 ├── requirements.txt    # Python dependencies
 └── README.md          # This file
 ```
@@ -30,23 +30,23 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ### Step 1: Create the vulnerability (Initial commit)
 ```bash
-# This commit has Flask 2.0.1 which has vulnerable transitive dependencies
+# This commit has requests 2.27.1 which has vulnerable transitive dependencies
 git add .
 git commit -m "Initial commit with vulnerable dependencies"
 git push
 ```
 
-Wait for Dependabot to create an alert for the Werkzeug vulnerability.
+Wait for Dependabot to create an alert for the certifi vulnerability.
 
 ### Step 2: Fix the vulnerability (Fix commit)
 Update `requirements.txt` to:
 ```
-Flask==2.2.0  # or newer - this pulls in a safe version of Werkzeug
+requests==2.31.0  # or newer - this pulls in a safe version of certifi
 ```
 
 ```bash
 git add requirements.txt
-git commit -m "Update Flask to fix transitive Werkzeug vulnerability"
+git commit -m "Update requests to fix transitive certifi vulnerability"
 git push
 ```
 

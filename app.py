@@ -1,20 +1,24 @@
 """
-Simple Flask application to demonstrate Dependabot transitive dependency issue.
+Simple application using requests to demonstrate Dependabot transitive dependency issue.
 """
-from flask import Flask, jsonify
-
-app = Flask(__name__)
+import requests
 
 
-@app.route('/')
-def hello():
-    return jsonify(message="Hello World!")
-
-
-@app.route('/health')
-def health():
-    return jsonify(status="healthy")
+def fetch_data(url):
+    """Fetch data from a URL using requests."""
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Error fetching data: {e}")
+        return None
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Example usage
+    url = "https://api.github.com/repos/python/cpython"
+    data = fetch_data(url)
+    if data:
+        print(f"Repository: {data.get('name')}")
+        print(f"Stars: {data.get('stargazers_count')}")
