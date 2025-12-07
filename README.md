@@ -4,13 +4,13 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ## The Problem Scenario
 
-1. **Initial State**: We have `async@2.6.3` installed, which depends on `lodash@4.17.19`
-   - lodash 4.17.19 (transitive dependency) has known security vulnerabilities (CVE-2020-8203, CVE-2021-23337)
-   - Dependabot will create an alert for the lodash vulnerability
+1. **Initial State**: We have `express@4.17.1` installed, which has transitive dependencies with vulnerabilities
+   - Transitive dependencies (like `qs`, `send`, etc.) may have known security vulnerabilities
+   - Dependabot will create alerts for these transitive dependency vulnerabilities
 
-2. **The Fix**: We update async to version 3.x which no longer depends on lodash
-   - The lodash vulnerability is resolved by removing/updating the dependency
-   - However, we didn't directly change lodash in package.json - we only changed async
+2. **The Fix**: We update express to a newer version (e.g., 4.18.2+) which includes patched transitive dependencies
+   - The transitive dependency vulnerabilities are resolved
+   - However, we didn't directly change the vulnerable packages in package.json - we only changed express
 
 3. **The Issue**: Dependabot may not automatically detect that the transitive dependency issue is resolved
    - The alert remains open even though the vulnerability is fixed
@@ -30,23 +30,23 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ### Step 1: Create the vulnerability (Initial commit)
 ```bash
-# This commit has async 2.6.3 which depends on vulnerable lodash 4.17.19
+# This commit has express 4.17.1 which has vulnerable transitive dependencies
 git add .
 git commit -m "Initial commit with vulnerable dependencies"
 git push
 ```
 
-Wait for Dependabot to create an alert for the lodash vulnerability.
+Wait for Dependabot to create alerts for the transitive dependency vulnerabilities.
 
 ### Step 2: Fix the vulnerability (Fix commit)
 Update `package.json` to:
 ```json
-"async": "3.2.4"
+"express": "4.19.2"
 ```
 
 ```bash
 git add package.json
-git commit -m "Update async to fix transitive lodash vulnerability"
+git commit -m "Update express to fix transitive vulnerabilities"
 git push
 ```
 

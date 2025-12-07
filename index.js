@@ -2,20 +2,17 @@
  * Simple Node.js script to demonstrate Dependabot transitive dependency issue.
  */
 
-const async = require('async');
+const express = require('express');
+const app = express();
 
 console.log('This project demonstrates Dependabot transitive dependency detection.');
 console.log('Check package.json for the dependency configuration.');
 
-// Simple async usage
-async.map([1, 2, 3], (num, callback) => {
-  setTimeout(() => {
-    callback(null, num * 2);
-  }, 100);
-}, (err, results) => {
-  if (err) {
-    console.error('Error:', err);
-  } else {
-    console.log('Doubled array:', results);
-  }
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
