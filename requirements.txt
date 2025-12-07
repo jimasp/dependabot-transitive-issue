@@ -1,3 +1,4 @@
-# Step 1: Use requests with an older version that depends on vulnerable certifi
-# requests 2.27.1 depends on certifi, and older certifi versions have CVE-2022-23491
-requests==2.27.1
+# Step 1: Use Django 4.1.0 which depends on sqlparse
+# sqlparse has CVE-2023-30608 (ReDOS) in versions < 0.4.4
+# Django 4.1.0 allows sqlparse versions that include vulnerable ones
+Django==4.1.0

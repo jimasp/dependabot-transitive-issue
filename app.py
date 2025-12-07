@@ -1,24 +1,33 @@
 """
-Simple application using requests to demonstrate Dependabot transitive dependency issue.
+Minimal Django configuration to demonstrate Dependabot transitive dependency issue.
 """
-import requests
+import os
+import django
+from django.conf import settings
+from django.http import JsonResponse
+from django.urls import path
+
+# Minimal Django settings
+if not settings.configured:
+    settings.configure(
+        DEBUG=True,
+        SECRET_KEY='demo-secret-key-not-for-production',
+        ROOT_URLCONF=__name__,
+        ALLOWED_HOSTS=['*'],
+    )
+    django.setup()
 
 
-def fetch_data(url):
-    """Fetch data from a URL using requests."""
-    try:
-        response = requests.get(url, timeout=10)
-        response.raise_for_status()
-        return response.json()
-    except requests.RequestException as e:
-        print(f"Error fetching data: {e}")
-        return None
+def hello(request):
+    """Simple view that returns JSON."""
+    return JsonResponse({'message': 'Hello World!'})
+
+
+urlpatterns = [
+    path('', hello),
+]
 
 
 if __name__ == '__main__':
-    # Example usage
-    url = "https://api.github.com/repos/python/cpython"
-    data = fetch_data(url)
-    if data:
-        print(f"Repository: {data.get('name')}")
-        print(f"Stars: {data.get('stargazers_count')}")
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(['manage.py', 'runserver', '0.0.0.0:8000'])

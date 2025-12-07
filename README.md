@@ -4,13 +4,13 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ## The Problem Scenario
 
-1. **Initial State**: We have requests 2.27.1 installed, which depends on certifi
-   - certifi (transitive dependency) has known security vulnerabilities in older versions (e.g., CVE-2022-23491, CVE-2023-37920)
+1. **Initial State**: We have Django 4.1.0 installed, which depends on sqlparse
+   - sqlparse (transitive dependency) has CVE-2023-30608 (ReDOS vulnerability) in versions < 0.4.4
    - Dependabot will create an alert for this vulnerability
 
-2. **The Fix**: We update requests to a newer version (e.g., 2.31.0+) which depends on a patched certifi
-   - The new certifi version fixes the security vulnerability
-   - However, we didn't directly change certifi in requirements.txt - we only changed requests
+2. **The Fix**: We update Django to a newer version (e.g., 4.2.0+) which requires sqlparse >= 0.4.4
+   - The new sqlparse version fixes the security vulnerability
+   - However, we didn't directly change sqlparse in requirements.txt - we only changed Django
 
 3. **The Issue**: Dependabot may not automatically detect that the transitive dependency issue is resolved
    - The alert remains open even though the vulnerability is fixed
@@ -21,7 +21,7 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ```
 .
-├── app.py              # Simple application using requests
+├── app.py              # Minimal Django application
 ├── requirements.txt    # Python dependencies
 └── README.md          # This file
 ```
@@ -30,23 +30,23 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ### Step 1: Create the vulnerability (Initial commit)
 ```bash
-# This commit has requests 2.27.1 which has vulnerable transitive dependencies
+# This commit has Django 4.1.0 which allows vulnerable sqlparse versions
 git add .
 git commit -m "Initial commit with vulnerable dependencies"
 git push
 ```
 
-Wait for Dependabot to create an alert for the certifi vulnerability.
+Wait for Dependabot to create an alert for the sqlparse vulnerability.
 
 ### Step 2: Fix the vulnerability (Fix commit)
 Update `requirements.txt` to:
 ```
-requests==2.31.0  # or newer - this pulls in a safe version of certifi
+Django==4.2.0  # or newer - this requires sqlparse >= 0.4.4 (patched)
 ```
 
 ```bash
 git add requirements.txt
-git commit -m "Update requests to fix transitive certifi vulnerability"
+git commit -m "Update Django to fix transitive sqlparse vulnerability"
 git push
 ```
 
