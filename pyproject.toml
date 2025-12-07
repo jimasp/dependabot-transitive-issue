@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-dependabot-transitive-demo = "1.0.0"
+dependabot-transitive-demo = "1.0.1"
 
 
 [[tool.poetry.source]]

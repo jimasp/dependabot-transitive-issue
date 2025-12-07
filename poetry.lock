@@ -2,17 +2,17 @@
 
 [[package]]
 name = "dependabot-transitive-demo"
-version = "1.0.0"
+version = "1.0.1"
 description = "Demo package for testing Dependabot transitive dependency detection"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "dependabot_transitive_demo-1.0.0-py3-none-any.whl", hash = "sha256:764239224655b62c2311f40d43d167148aadd3d0cee89f1b143a840e75a62fcc"},
-    {file = "dependabot_transitive_demo-1.0.0.tar.gz", hash = "sha256:0b16e35944a7a746f6a55056e1a98fd0f99965893aaaecb7384136d95b7024d2"},
+    {file = "dependabot_transitive_demo-1.0.1-py3-none-any.whl", hash = "sha256:64d371e06a7d19953ec9c1ef9c15f80bc7f9d7551baf89b8a72403b2651d39fa"},
+    {file = "dependabot_transitive_demo-1.0.1.tar.gz", hash = "sha256:d7a561f4c671a0cd0dd1f191968240bce63d1f04d13036dae7d7ddf2d1462ee1"},
 ]
 
 [package.dependencies]
-urllib3 = "1.26.5"
+urllib3 = ">=1.26.17"
 
 [package.source]
 type = "legacy"
@@ -21,13 +21,27 @@ reference = "testpypi"
 
 [[package]]
 name = "urllib3"
-version = "1.26.5"
+version = "2.2.3"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 optional = false
-python-versions = "*"
-files = []
+python-versions = ">=3.8"
+files = [
+    {file = "urllib3-2.2.3-py3-none-any.whl", hash = "sha256:ca899ca043dcb1bafa3e262d73aa25c465bfb49e0bd9dd5d59f1d0acba2f8fac"},
+    {file = "urllib3-2.2.3.tar.gz", hash = "sha256:e7d814a81dad81e6caf2ec9fdedb284ecc9c73076b62654547cc64ccdcae26e9"},
+]
+
+[package.extras]
+brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
+h2 = ["h2 (>=4,<5)"]
+socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
+zstd = ["zstandard (>=0.18.0)"]
+
+[package.source]
+type = "legacy"
+url = "https://test.pypi.org/simple"
+reference = "testpypi"
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "7e59f7c8b05b2c0346ecabf45679e73ec8094345593edca98a088755acb32379"
+content-hash = "f9eda831d8f4e1d6e5f4a2384ac63caf7f258a833386b9a9b470a7a0a9ee6123"
