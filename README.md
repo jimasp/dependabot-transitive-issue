@@ -4,13 +4,13 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ## The Problem Scenario
 
-1. **Initial State**: We have `express@4.17.1` installed, which has transitive dependencies with vulnerabilities
-   - Transitive dependencies (like `qs`, `send`, etc.) may have known security vulnerabilities
-   - Dependabot will create alerts for these transitive dependency vulnerabilities
+1. **Initial State**: We have `axios@0.21.1` installed, which depends on `follow-redirects`
+   - follow-redirects (transitive dependency) has known security vulnerabilities in older versions
+   - Dependabot will create alerts for the follow-redirects vulnerability
 
-2. **The Fix**: We update express to a newer version (e.g., 4.18.2+) which includes patched transitive dependencies
-   - The transitive dependency vulnerabilities are resolved
-   - However, we didn't directly change the vulnerable packages in package.json - we only changed express
+2. **The Fix**: We update axios to a newer version (e.g., 1.6.0+) which depends on a patched follow-redirects
+   - The follow-redirects vulnerability is resolved
+   - However, we didn't directly change follow-redirects in package.json - we only changed axios
 
 3. **The Issue**: Dependabot may not automatically detect that the transitive dependency issue is resolved
    - The alert remains open even though the vulnerability is fixed
@@ -30,23 +30,23 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ### Step 1: Create the vulnerability (Initial commit)
 ```bash
-# This commit has express 4.17.1 which has vulnerable transitive dependencies
+# This commit has axios 0.21.1 which depends on vulnerable follow-redirects
 git add .
 git commit -m "Initial commit with vulnerable dependencies"
 git push
 ```
 
-Wait for Dependabot to create alerts for the transitive dependency vulnerabilities.
+Wait for Dependabot to create alerts for the follow-redirects vulnerability.
 
 ### Step 2: Fix the vulnerability (Fix commit)
 Update `package.json` to:
 ```json
-"express": "4.19.2"
+"axios": "1.6.0"
 ```
 
 ```bash
 git add package.json
-git commit -m "Update express to fix transitive vulnerabilities"
+git commit -m "Update axios to fix transitive follow-redirects vulnerability"
 git push
 ```
 
