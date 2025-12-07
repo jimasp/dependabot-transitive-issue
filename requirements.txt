@@ -1,2 +1,2 @@
 # Step 1: Use Flask 2.0.1 which depends on Werkzeug 2.0.x with known vulnerabilities
-Flask==2.0.1
+Flask==3.1.2
