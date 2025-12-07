@@ -1,0 +1,5 @@
+# Step 1: Use dependabot-transitive-demo v1.0.0 which depends on vulnerable urllib3==1.26.5
+# Install from Test PyPI
+--index-url https://test.pypi.org/simple/
+--extra-index-url https://pypi.org/simple/
+dependabot-transitive-demo==1.0.0

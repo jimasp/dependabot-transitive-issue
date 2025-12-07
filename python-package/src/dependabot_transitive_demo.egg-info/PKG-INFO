@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: dependabot-transitive-demo
+Version: 1.0.0
+Summary: Demo package for testing Dependabot transitive dependency detection
+Author-email: Jim <noreply@example.com>
+License: MIT
+Project-URL: Homepage, https://github.com/jimasp/dependabot-transitive-issue
+Project-URL: Bug Reports, https://github.com/jimasp/dependabot-transitive-issue/issues
+Keywords: dependabot,security,testing
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: urllib3==1.26.5
+Dynamic: license-file
+
+# Dependabot Transitive Demo Package
+
+This is a minimal Python package created to demonstrate Dependabot's behavior with transitive dependency vulnerabilities.
+
+## Purpose
+
+- **Version 1.0.0**: Depends on `urllib3==1.26.5` which has CVE-2021-33503
+- **Version 1.0.1** (to be published later): Will update to `urllib3>=1.26.17` which fixes the vulnerability
+
+This package itself contains no vulnerabilities - it simply depends on a vulnerable package to demonstrate how Dependabot handles transitive dependency issues.
+
+## Installation
+
+```bash
+pip install dependabot-transitive-demo
+```
+
+## Usage
+
+```python
+from dependabot_transitive_demo import demo_function
+
+demo_function()
+```
