@@ -31,15 +31,15 @@ This repository demonstrates a scenario where Dependabot may not detect that a t
 
 ### Step 0: Publish the demo package (one-time setup)
 
-First, you need to publish the `dependabot-transitive-demo` package to Test PyPI:
+First, you need to publish the `dependabot-transitive-demo` package to PyPI:
 
 ```bash
 cd python-package
 python -m build
-python -m twine upload --repository testpypi dist/*
+python -m twine upload dist/*
 ```
 
-Note: You'll need a Test PyPI account at https://test.pypi.org/account/register/
+Note: You'll need a PyPI account at https://pypi.org/account/register/
 
 ### Step 1: Create the vulnerability (Initial commit)
 ```bash
